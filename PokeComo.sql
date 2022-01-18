@@ -33,4 +33,5 @@ USE pokecorp;
 --     FOREIGN KEY(tr_id) REFERENCES trainer(id)
 -- );
 
-DELETE FROM pokemon_type; 
+-- DELETE FROM pokemon_type;
+DELETE FROM trainer
