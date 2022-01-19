@@ -7,7 +7,7 @@ USE pokecorp;
 
 -- CREATE TABLE Pokemon_Type (
 --     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
---     TYPE VARCHAR(30)
+--     Type VARCHAR(30)
 -- );
 
 -- CREATE TABLE Pokemon (

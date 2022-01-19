@@ -14,7 +14,7 @@ sequelize
     })
 
 const addPokemon = async function (id, name, height, weight, type) {
-    const query_type = `SELECT id FROM pokemon_type WHERE TYPE = '${type}'`;
+    const query_type = `SELECT id FROM pokemon_type WHERE Type = '${type}'`;
     let typeData = await sequelize.query(query_type)
     let type_id = typeData[0][0].id
     if(!type_id) return;
