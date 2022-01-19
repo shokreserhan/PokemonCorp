@@ -55,6 +55,37 @@ const addTrainer = async function (name , town) {
     return result[0]
 }
 
+const findHeaviestPokemon = async function () {
+    const HeaviestQuery = `SELECT P_name FROM pokemon WHERE P_weight =(SELECT MAX(P_weight) FROM pokemon)`;
+    let HeaviestPokemonData = await sequelize.query(HeaviestQuery)
+    let HeaviestPokemonName = HeaviestPokemonData[0][0].P_name
+    if(!HeaviestPokemonName) return;
+    return HeaviestPokemonName
+}
+
+const findByType = async function (type) {
+    const findByTypeQuery = `SELECT P_name FROM pokemon WHERE P_type_id =(SELECT id FROM pokemon_type WHERE Type = '${type}')`;
+    let samePokemonTypeData = await sequelize.query(findByTypeQuery)
+    let samePokemonTypeArray = samePokemonTypeData[0]
+    if(!samePokemonTypeArray.length) return;
+    return samePokemonTypeArray
+}
+
+const findOwners = async function (pokemonName) {
+    const findOwnersQuery = `SELECT trainer.name FROM pokemon_trainer JOIN pokemon JOIN trainer ON pokemon_trainer.p_id = pokemon.p_id AND pokemon_trainer.tr_id = trainer.id WHERE pokemon.p_name = '${pokemonName}'`;
+    let ownersData = await sequelize.query(findOwnersQuery).catch(err=>{console.log(err);})
+    let ownersArray = ownersData[0]
+    if(!ownersArray.length) return;
+    return ownersArray
+}
+
+const findRoster = async function (ownerName) {
+    const findByPokemonQuery = `SELECT p_name FROM pokemon_trainer JOIN pokemon JOIN trainer ON pokemon_trainer.p_id = pokemon.p_id AND pokemon_trainer.tr_id = trainer.id WHERE trainer.name = '${ownerName}'`;
+    let pokemonsOfOwnerData = await sequelize.query(findByPokemonQuery).catch(err=>{console.log(err);})
+    let pokemonsOfOwnerArray = pokemonsOfOwnerData[0]
+    if(!pokemonsOfOwnerArray.length) return;
+    return pokemonsOfOwnerArray
+}
 
 const convertPokemonTypeToSQL = function(){
     let types = new Set()
@@ -121,3 +152,19 @@ const connectPokemonAndTrainer = function(){
 // convertTrainerToSQL();
 // convertPokemonDataToSQL();
 // connectPokemonAndTrainer();
+
+// findHeaviestPokemon().then(res => {
+//     console.log(res);
+// })
+
+// findByType("grass").then(res => {
+//     console.log(res);
+// })
+
+// findOwners("gengar").then(res => {
+//     console.log(res);
+// })
+
+findRoster("Loga").then(res => {
+    console.log(res);
+})

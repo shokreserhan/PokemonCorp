@@ -34,3 +34,24 @@ USE pokecorp;
 -- );
 
 -- DELETE FROM pokemon_type;
+
+-- SELECT p_name
+-- FROM pokemon_trainer, pokemon, trainer
+-- WHERE pokemon_trainer.p_id = pokemon.p_id AND pokemon_trainer.tr_id = trainer.id AND trainer.name = 'gengar';
+
+SELECT trainer.name
+FROM pokemon_trainer JOIN pokemon JOIN trainer
+ON pokemon_trainer.p_id = pokemon.p_id AND pokemon_trainer.tr_id = trainer.id
+WHERE pokemon.p_name = 'gengar';
+    
+-- SELECT 
+--     item_purchased, amount, 
+--     customer.name AS cust_name, -- aliasing
+--     company.name AS comp_name
+-- FROM 
+--     transaction, 
+--     customer, 
+--     company
+-- WHERE 
+--     transaction.customer_id = customer.id AND
+--     transaction.company_id = company.id;
