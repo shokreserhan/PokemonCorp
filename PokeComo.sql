@@ -34,4 +34,3 @@ USE pokecorp;
 -- );
 
 -- DELETE FROM pokemon_type;
-DELETE FROM trainer
